@@ -8,3 +8,4 @@ Discord.js V14 basit menu ile rol seçme botu
 4. `node .` yazarak botu çalıştırın
 
 
+![Örnek Görsel](https://github.com/user-attachments/assets/b9e4da75-1c18-4a0e-9d0f-5f8cd1198000)
