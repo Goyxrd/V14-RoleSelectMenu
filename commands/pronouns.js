@@ -1,4 +1,4 @@
-const { ActionRowBuilder, StringSelectMenuBuilder, InteractionType } = require('discord.js');
+const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 const config = require('../config.json');
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
 
   async execute(message, args) {
     if (message.author.id !== config.ownerID) {
-      return message.reply('Bu komuta erişim izniniz yok');
+      return message.reply('Bu komuta erişim izniniz yok.');
     }
 
     const roller = {
@@ -29,20 +29,22 @@ module.exports = {
         ])
     );
 
-    await message.channel.send({
+    const panelMessage = await message.channel.send({
       content: '> 🎀 Menü Üzerinden **Pronouns** Rolünüzü Alabilirsiniz',
       components: [row]
     });
 
     const filter = interaction => interaction.customId === 'Pronouns';
 
-    const collector = message.channel.createMessageComponentCollector({ 
+    const collector = panelMessage.createMessageComponentCollector({
       filter,
       time: 0 
     });
 
     collector.on('collect', async interaction => {
       if (interaction.customId !== 'Pronouns') return;
+
+      await interaction.deferReply({ ephemeral: true });
 
       const member = interaction.member;
       const selectedRole = roller[interaction.values[0]];
@@ -53,7 +55,7 @@ module.exports = {
             await member.roles.remove(roleID);
           }
         }
-        await interaction.reply({ content: 'Tüm pronouns rolleriniz alındı', ephemeral: true });
+        await interaction.editReply({ content: '🎀 Tüm pronouns rolleriniz alındı' });
       } else {
         for (const roleID of Object.values(roller)) {
           if (roleID !== selectedRole && member.roles.cache.has(roleID)) {
@@ -64,7 +66,7 @@ module.exports = {
         const role = message.guild.roles.cache.get(selectedRole);
         if (role) {
           await member.roles.add(role);
-          await interaction.reply({ content: `Artık ${role.name} rolüne sahipsiniz`, ephemeral: true });
+          await interaction.editReply({ content: `🎀 Artık ${role.name} rolüne sahipsiniz` });
         }
       }
     });
