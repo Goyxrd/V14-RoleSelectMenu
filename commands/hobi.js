@@ -1,5 +1,4 @@
-const { ActionRowBuilder, StringSelectMenuBuilder, InteractionType } = require('discord.js');
-const config = require('../config.json');
+const { ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
 
 module.exports = {
   name: 'hobipanel',
@@ -32,20 +31,22 @@ module.exports = {
         ])
     );
 
-    await message.channel.send({
+    const panelMessage = await message.channel.send({
       content: '> 🎀 Menü Üzerinden **Hobi** Rolünüzü Alabilirsiniz',
       components: [row]
     });
 
     const filter = interaction => interaction.customId === 'hobiler';
 
-    const collector = message.channel.createMessageComponentCollector({ 
+    const collector = panelMessage.createMessageComponentCollector({
       filter,
       time: 0 
     });
 
     collector.on('collect', async interaction => {
       if (interaction.customId !== 'hobiler') return;
+
+      await interaction.deferReply({ ephemeral: true });
 
       const member = interaction.member;
       const selectedValue = interaction.values[0];
@@ -57,7 +58,7 @@ module.exports = {
             await member.roles.remove(roleID);
           }
         }
-        await interaction.reply({ content: 'Tüm hobi rolleriniz alındı', ephemeral: true });
+        await interaction.editReply({ content: '🎀 Tüm hobi rolleriniz alındı' });
       } else {
         for (const roleID of Object.values(roller)) {
           if (roleID !== selectedRoleID && member.roles.cache.has(roleID)) {
@@ -68,7 +69,7 @@ module.exports = {
         const role = message.guild.roles.cache.get(selectedRoleID);
         if (role) {
           await member.roles.add(role);
-          await interaction.reply({ content: `Artık ${role.name} rolüne sahipsiniz`, ephemeral: true });
+          await interaction.editReply({ content: `🎀 Artık ${role.name} rolüne sahipsiniz` });
         }
       }
     });
