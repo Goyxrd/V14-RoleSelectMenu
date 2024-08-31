@@ -1,14 +1,9 @@
-
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="./assets/back.png"></a>
+    <img width=200px height=200px src="./assets/back.png">
+  </a>
 </p>
 
-<h3 align="center">back</h3>
-
----
-
-<p align="center"> 🔆 A simple node.js console application to change your monitors' back<br></p>
 
 # V14-RoleSelectMenu
 Discord.js V14 basit menu ile rol seçme botu
