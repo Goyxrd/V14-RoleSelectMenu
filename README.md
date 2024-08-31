@@ -6,7 +6,7 @@
 <h3 align="center">V14-RoleSelectMenu</h3>
 
 
-Discord.js V14 basit menu ile rol seçme botu
+
 
 # Kurulum
 1. `.env` dosyası oluşturup `TOKEN=tokeniniz` şeklin de giriniz
