@@ -1,3 +1,15 @@
+
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="./assets/brighter.png"></a>
+</p>
+
+<h3 align="center">brighter</h3>
+
+---
+
+<p align="center"> 🔆 A simple node.js console application to change your monitors' brightness.<br></p>
+
 # V14-RoleSelectMenu
 Discord.js V14 basit menu ile rol seçme botu
 
